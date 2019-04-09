@@ -1,8 +1,12 @@
 # RancherOSをインストールする
 
-全体的に冗長な構成になっている。
+おことわり：私と同じRancherOSを触ったことない人向けに書いているので、全体的に冗長な構成になっている。
 
 ## tl;dr
+
+* 作業用Windowsから対象サーバーに対してRancherOSをインストールするまでの手順
+* RancherOSはいいぞ
+* RancherとRancherOSは別物だぞ。RancherOSはAlpine+Dockerみたいなもの。
 
 ## モチベーション
 
@@ -32,7 +36,7 @@
 
 ### ファイルの準備
 
-[https://github.com/rancher/os/releases/] よりISOファイルをダウンロード
+https://github.com/rancher/os/releases/ よりISOファイルをダウンロード
 
 * `rancheros.iso`を選ぶこと
   * 今回は2019/04/09時点で最新のv1.5.1を使用する
@@ -55,15 +59,15 @@ rufusで作成したブータブルUSBを刺して、サーバーを起動する
 
 コンソール上のtty1では作業が面倒なので、一旦SSHで入れるようにする（この作業は、ブータブルUSBで起動している現在のセッションにのみ設定していることに留意する）。
 
-`sudo passwd rancher`
+```bash
+sudo passwd rancher
+```
 
-#### Tips
+#### Tips: sshd_configの追記について
 
-shd_configには以下の追記があるようにうかがえる。`UseDNS no`は、sshdの名前解決動作の関係で[ログインが遅くなることがあるのが知られている](https://www.google.com/search?q=usedns+no)。
+sshd_configには、OpenSSHで生成されるデフォルトのものに比べ、以下の追記があるようにうかがえる。`UseDNS no`は、sshdの名前解決動作の関係で[ログインが遅くなることがあるのが知られている](https://www.google.com/search?q=usedns+no)ので、その解消のためと推測される。
 
 ```sshd_config
-ClientAliveInterval 180
-
 UseDNS no
 PermitRootLogin no
 ```
@@ -77,8 +81,10 @@ PermitRootLogin no
 
 キーペアの生成後、以下のコマンドでcloud-config.ymlを作成する。
 
-`echo -n -e "#cloud-config\nssh_authorized_keys:\n  - " > cloud-config.yml`
-`echo "<生成した公開鍵>" >> cloud-config.yml`
+```bash
+echo -n -e "#cloud-config\nssh_authorized_keys:\n  - " > cloud-config.yml
+echo "<生成した公開鍵>" >> cloud-config.yml
+```
 
 ### ディスクへの書き込み
 
@@ -114,7 +120,7 @@ sudo ros install -c cloud-config.yml -d /dev/sda
 
 https://rancher.com/docs/os/v1.2/en/networking/interfaces/
 
-```
+```bash
 sudo ros config set rancher.network.interfaces.eth0.address 192.168.*.*/24
 sudo ros config set rancher.network.interfaces.eth0.gateway 192.168.*.*
 sudo ros config set rancher.network.interfaces.eth0.mtu 1500
@@ -127,14 +133,14 @@ sudo ros config set rancher.network.interfaces.eth0.dhcp false
 
 RancherOSでは、全てDocker上でごにょごにょする思想となっている。とはいえ、ベースはLinuxなので、それなりのコマンドは使用できるようになっている。
 
-```
+```bash
 $ echo $PATH
 /bin:/sbin:/usr/bin:/usr/sbin
 ```
 
 ところで、`/bin`と`/sbin`を見ると、`/usr/bin`と`/usr/sbin`にシンボリックリンクされている。
 
-```
+```bash
 [rancher@rancher ~]$ ls -al /bin /sbin
 lrwxrwxrwx    1 root     root             7 Oct 25 18:43 /bin -> usr/bin
 lrwxrwxrwx    1 root     root             8 Oct 25 18:43 /sbin -> usr/sbin
@@ -144,7 +150,7 @@ lrwxrwxrwx    1 root     root             8 Oct 25 18:43 /sbin -> usr/sbin
 
 <details><summary>$ ls -1 /usr/bin /usr/sbin</summary><div>
 
-```
+```bash
 [rancher@rancher ~]$ ls -1 /usr/bin /usr/sbin
 /usr/bin:
 [
@@ -635,7 +641,7 @@ xfs_spaceman
 
 <details><summary>$ ls -al /usr/bin</summary><div>
 
-```
+```bash
 [rancher@rancher ~]$ ls -al /usr/bin/
 total 36064
 drwxr-xr-x    1 root     root          4096 Apr  9 08:16 .
@@ -901,7 +907,7 @@ lrwxrwxrwx    1 root     root             7 Oct 25 18:43 zcat -> busybox
 
 <details><summary>$ ls -al /usr/sbin</summary><div>
 
-```
+```bash
 [rancher@rancher ~]$ ls -al /usr/sbin/
 total 15788
 drwxr-xr-x    1 root     root          4096 Apr  9 08:16 .
