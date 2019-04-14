@@ -1,20 +1,9 @@
 # #ふくばねてす node-1 にお邪魔してきました。
 
-## tl;dr
-
-* 
-* 
-* 
-
------
-
-## まとめ
+## まとめ（個人、運営問わず）
 
 Toggeter: https://togetter.com/li/1336069  
 loftkun: https://github.com/loftkun/conference/blob/master/2019/0408-fukubernetes-01/README.md  
-kitkatayama: TBO
-
-## 開場～開催前
 
 ## セッション
 
@@ -38,7 +27,9 @@ cgroup v2とPSIがサポートされ、今までホストごとだったパフ�
   * https://qiita.com/ishida330/items/dfff18362ea16aa92f88
   * https://qiita.com/inductor/items/1463cefb72296369b49f 
 
-Rancherの中の人。とにかく話が面白かった。
+Rancherの中の人。かなり駆け足だったけど、とにかく話が面白かった。紹介されていた資料が私のような初学者にとってはとても参考になった。
+
+RancherとRancherOSについては、個人的に非常に便利。
 
 ### kokotapでPodのパケットキャプチャ by Takayuki Konishiさん (@leather_sole)
 
@@ -51,7 +42,7 @@ Kubernetesのpodにパケットキャプチャ用のmirrorデバイスが作成�
 * 資料: TBO
 * 参照: https://speakerdeck.com/shiro16/telepresence-deshi-meru-k8s-shi-dai-falserokarukai-fa
 
-telepresenceはKubernetesの一部のpodをローカルのサーバやDockerに置き換えることができる。そのため、ビルド毎のpod更新の手間なんかを省くことができる。
+telepresenceはKubernetesの一部のpodをローカルのサーバやDockerに置き換えることができるという話。何が幸せかというと、ビルド毎のpod更新の手間なんかを省くことができる。
 
 ### いっぱい kustomize する by iwaさん (@mananyuki)
 
@@ -117,7 +108,9 @@ YahooでK8sを実運用した際のノウハウ。元のスライドは30分だ�
 
 * 資料: https://speakerdeck.com/loftkun/enjoying-k8s-cluster-with-minikube-and-helm
 
-minikubeを使った開発環境の紹介とHelm chartに自作アプリケーションを載せた話。後述するが、RancherでHelmについては何となくわかった。
+minikubeを使った開発環境の紹介とHelm chartに自作アプリケーションを載せた話。
+
+後ほどRancherでHelm遊んでみたところ、何となく何をするものなのかわかった。
 
 ### Falcoを触ってみた by toenobuさん (@toenobu)
 
@@ -141,12 +134,11 @@ Herokuで採用されている「プログラムのコードを解析して、�
 
 この思想に従えば、アプリケーションコードを書く以外は全てをBuildpacksが賄ってくれるわけだ。これは、インフラ整備の大幅なコストを解決する。依存関係を整理されたアプリケーション実行基盤はビルド毎に最新に置き換えられるわけで、脆弱性対応なども意識しなくてよくなり、スケールメリットも大きい。つまり、インフラエンジニアが設計する大部分を自動化しようという話だと解釈した。
 
-## 懇親会
-
 ## 終わりに
 
 手書きのメモについては、以下のフォトライフに上げています。
 
+http://f.hatena.ne.jp/kitkatayama/20180408_fukubanetesu/
 
 ## その後
 
@@ -155,9 +147,4 @@ Herokuで採用されている「プログラムのコードを解析して、�
 * [ベアメタルサーバにRancherOSをインストールする手順（といくつか気づいたこと）。](https://kitkatayama.hatenablog.com/entry/2019/04/09/230012)
 * [Docker in Dockerで手軽にBuildpacksを試す。](https://kitkatayama.hatenablog.com/entry/2019/04/12/174340)
 
-参照:
-https://kubernetes.io/docs/tasks/tools/install-minikube/
-https://help.ubuntu.com/community/KVM/Installation
-18.04でもgroupがlibvertの模様。
-https://github.com/dhiltgen/docker-machine-kvm/releases
-18.04にdriverが無い
+minikubeとkokotapは消化不良なので、別途まとめたい。
