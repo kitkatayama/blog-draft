@@ -57,8 +57,6 @@ EULAに同意することは強制されるので諦めてほしい。チェッ�
 
 > https://download.maxmind.com/app/**geoip_download**?edition_id=GeoLite2-Country&**license_key=YOUR_LICENSE_KEY**&suffix=tar.gz
 
-
-https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=byepzcmdDJiwRjgk&suffix=tar.gz
 とする。
 
 あとはwgetやcurlで叩けば入手できる。
